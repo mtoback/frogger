@@ -23,6 +23,10 @@ var Engine = (function(global) {
         win = global.window,
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
+        colWidth = 101,
+        rowHeight = 83,
+        numRows = 6,
+        numCols = 5,
         lastTime;
 
     canvas.width = 505;
@@ -80,7 +84,7 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
+        checkCollisions();
     }
 
     /* This is called by the update function and loops through all of the
@@ -95,6 +99,20 @@ var Engine = (function(global) {
             enemy.update(dt);
         });
         player.update();
+    }
+
+    function checkCollisions() {
+        allEnemies.forEach(function(enemy) {
+            var x = player.position.x*rowHeight + rowHeight/2;
+            var y = player.position.y*colWidth + colWidth/2;
+             if((enemy.position.y + rowHeight/2 > y) && (enemy.position.y - rowHeight/2 < y)) {
+                if((enemy.position.x + colWidth/2 > x) && (enemy.position.x - colWidth/2 < x)) {
+                    player.position.x =2;
+                    player.position.y = 5;
+                    player.render();
+                }
+             }
+        });
     }
 
     /* This function initially draws the "game level", it will then call
@@ -115,8 +133,6 @@ var Engine = (function(global) {
                 'images/grass-block.png',   // Row 1 of 2 of grass
                 'images/grass-block.png'    // Row 2 of 2 of grass
             ],
-            numRows = 6,
-            numCols = 5,
             row, col;
 
         /* Loop through the number of rows and columns we've defined above
@@ -132,7 +148,7 @@ var Engine = (function(global) {
                  * so that we get the benefits of caching these images, since
                  * we're using them over and over.
                  */
-                ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
+                ctx.drawImage(Resources.get(rowImages[row]), col * colWidth, row * rowHeight);
             }
         }
 
@@ -180,4 +196,12 @@ var Engine = (function(global) {
      * from within their app.js files.
      */
     global.ctx = ctx;
+
+    /**
+    and other constants
+    */
+    global.rowHeight = rowHeight;
+    global.colWidth = colWidth;
+    global.numRows = numRows;
+    global.numCols = numCols;
 })(this);
