@@ -4,10 +4,11 @@ var Enemy = function() {
     //Enemy position; start off screen, and go randomly row 1-3
     // Any x position < 0 is assumed to be offscreen
     // add 25% row to y position to center it
-    this.position = {x:-400 + Math.random()*400,
+    this.position = {x: -400 + Math.random()*400,
         y:rowHeight*(Math.floor(Math.random() * 3) + 1) - rowHeight/4,
-        row:Math.round(this.position.x/rowHeight),
+        row: 0,
         col:  -1};
+    this.position.row = Math.round(this.position.x/rowHeight);
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
