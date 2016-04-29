@@ -77,7 +77,7 @@ Player.prototype.handleInput = function(direction){
             }
             break;
         case "right":
-            if (this.position.x < numCols){
+            if (this.position.x < numCols-1){
                 this.position.x++;
                 this.render();
             }
@@ -93,7 +93,7 @@ Player.prototype.handleInput = function(direction){
             }
             break;
         case "down":
-            if (this.position.y < numRows){
+            if (this.position.y < numRows-1){
                 this.position.y++;
                 this.render();
             }
@@ -132,7 +132,7 @@ Player.prototype.render = function(){
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 var allEnemies = [];
-for (var index=0;index<5; index++){
+for (var index = 0;index < 5; index++){
     allEnemies[index] = new Enemy();
 }
 
