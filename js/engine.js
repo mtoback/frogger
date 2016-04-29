@@ -13,7 +13,7 @@
  * the canvas' context (ctx) object globally available to make writing app.js
  * a little simpler to work with.
  */
-
+"use strict";
 var Engine = (function(global) {
     /* Predefine the variables we'll be using within this scope,
      * create the canvas element, grab the 2D context for that canvas
@@ -51,7 +51,6 @@ var Engine = (function(global) {
          */
         update(dt);
         render();
-
         /* Set our lastTime variable which is used to determine the time delta
          * for the next time this function is called.
          */
@@ -101,16 +100,13 @@ var Engine = (function(global) {
         player.update();
     }
 
+    // see if each enemy is within the same row and column as the player
     function checkCollisions() {
         allEnemies.forEach(function(enemy) {
-            var x = player.position.x*rowHeight + rowHeight/2;
-            var y = player.position.y*colWidth + colWidth/2;
-             if((enemy.position.y + rowHeight/2 > y) && (enemy.position.y - rowHeight/2 < y)) {
-                if((enemy.position.x + colWidth/2 > x) && (enemy.position.x - colWidth/2 < x)) {
+             if((enemy.position.row == player.position.y) && (enemy.position.col == player.position.x)) {
                     player.position.x =2;
                     player.position.y = 5;
                     player.render();
-                }
              }
         });
     }
