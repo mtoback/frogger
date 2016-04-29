@@ -59,6 +59,14 @@ var Player = function() {
     this.winner = false;
 };
 
+/**
+* @description: handle arrow codes
+* @param {string} direction - up, down, right, or left
+*
+* if possible to move player without moving off of board do it
+* if player moved to final row, call weHaveAWinner and process
+* special stuff for him!
+*/
 Player.prototype.handleInput = function(direction){
     switch(direction){
         case "left":
@@ -93,15 +101,17 @@ Player.prototype.handleInput = function(direction){
     }
 };
 
-// simple response to a win. Put up a banner
-// for 5 seconds and move player back to start
+/**
+* @description simple response to a win. Put up a banner
+* for 5 seconds and move player back to start
+*/
 Player.prototype.weHaveAWinner = function(){
     ctx.font = '60pt Calibri';
     ctx.lineWidth = 3;
     // stroke color
     ctx.fillStyle = 'red';
     ctx.fillText('winner!!', 100, 40);
-    this.position = {x:2, y:5};
+    this.position = {x:firstCol, y:firstRow};
     this.render();
     var timeout = setTimeout(function(){
         ctx.fillStyle = 'white';

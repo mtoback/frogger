@@ -18,6 +18,9 @@ var Engine = (function(global) {
     /* Predefine the variables we'll be using within this scope,
      * create the canvas element, grab the 2D context for that canvas
      * set the canvas elements height/width and add it to the DOM.
+     *
+     * Note: The only thing worse than passing around numbers in a program
+     *       is to use GOTOs!!! NEVER EVER DO THAT!!!
      */
     var doc = global.document,
         win = global.window,
@@ -27,6 +30,8 @@ var Engine = (function(global) {
         rowHeight = 83,
         numRows = 6,
         numCols = 5,
+        firstCol= 2,
+        firstRow = 5,
         lastTime;
 
     canvas.width = 505;
@@ -104,8 +109,8 @@ var Engine = (function(global) {
     function checkCollisions() {
         allEnemies.forEach(function(enemy) {
              if((enemy.position.row == player.position.y) && (enemy.position.col == player.position.x)) {
-                    player.position.x =2;
-                    player.position.y = 5;
+                    player.position.x = firstCol;
+                    player.position.y = firstRow;
                     player.render();
              }
         });
@@ -200,4 +205,6 @@ var Engine = (function(global) {
     global.colWidth = colWidth;
     global.numRows = numRows;
     global.numCols = numCols;
+    global.firstRow = firstRow;
+    global.firstCol = firstCol;
 })(this);
